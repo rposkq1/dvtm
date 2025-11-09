@@ -7,9 +7,7 @@ RND=$(openssl rand -hex 8)
 
 while true; do
 	echo "$RND  $(date +"%F %T %s") $HOSTNAME "
-	if (( $(date +%s) % 60 == 0 )); then
-		RND=$(openssl rand -hex 8)
-	fi
+	[ $(( $(date +%s) % 60 )) -eq 0 ] && RND=$(openssl rand -hex 8) #if time is divisible by 60 set new RND
 	sleep 1s
 done > "$FIFO" &
 
