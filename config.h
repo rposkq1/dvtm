@@ -34,9 +34,9 @@ static Color colors[] = {
 #define BAR_BEGIN       '['
 #define BAR_END         ']'
 /* status bar (command line option -s) position */
-#define BAR_POS         BAR_TOP /* BAR_BOTTOM, BAR_OFF */
+#define BAR_POS         BAR_BOTTOM /* BAR_BOTTOM, BAR_OFF */
 /* whether status bar should be hidden if only one client exists */
-#define BAR_AUTOHIDE    true
+#define BAR_AUTOHIDE    false
 /* master width factor [0.1 .. 0.9] */
 #define MFACT 0.5
 /* number of clients in master area */
@@ -54,7 +54,7 @@ static Color colors[] = {
 /* curses attributes for not selected tags which with urgent windows */
 #define TAG_URGENT (COLOR(BLUE) | A_NORMAL | A_BLINK)
 
-const char tags[][8] = { "1", "2", "3", "4", "5" };
+const char tags[][8] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
 #include "tile.c"
 #include "grid.c"
@@ -70,6 +70,8 @@ static Layout layouts[] = {
 };
 
 #define MOD  CTRL('g')
+//#define MOD  'X'
+
 #define TAGKEYS(KEY,TAG) \
 	{ { MOD, 'v', KEY,     }, { view,           { tags[TAG] }               } }, \
 	{ { MOD, 't', KEY,     }, { tag,            { tags[TAG] }               } }, \
@@ -132,6 +134,9 @@ static KeyBinding bindings[] = {
 	{ { MOD, KEY_F(3),     }, { view,           { tags[2] }                 } },
 	{ { MOD, KEY_F(4),     }, { view,           { tags[3] }                 } },
 	{ { MOD, KEY_F(5),     }, { view,           { tags[4] }                 } },
+	{ { MOD, KEY_F(6),     }, { view,           { tags[5] }                 } },
+	{ { MOD, KEY_F(7),     }, { view,           { tags[6] }                 } },
+	{ { MOD, KEY_F(8),     }, { view,           { tags[7] }                 } },
 	{ { MOD, 'v', '0'      }, { view,           { NULL }                    } },
 	{ { MOD, 'v', '\t',    }, { viewprevtag,    { NULL }                    } },
 	{ { MOD, 't', '0'      }, { tag,            { NULL }                    } },
@@ -140,6 +145,9 @@ static KeyBinding bindings[] = {
 	TAGKEYS( '3',                              2)
 	TAGKEYS( '4',                              3)
 	TAGKEYS( '5',                              4)
+	TAGKEYS( '6',                              5)
+	TAGKEYS( '7',                              6)
+	TAGKEYS( '8',                              7)
 };
 
 static const ColorRule colorrules[] = {
