@@ -1,12 +1,16 @@
 #!/bin/sh
 
 FIFO="/tmp/dvtm-status.$$"
+RND=$(openssl rand -hex 8)
 
 [ -p "$FIFO" ] || mkfifo -m 600 "$FIFO" || exit 1
 
 while true; do
-	date +%H:%M
-	sleep 60
+	echo "$RND  $(date +"%F %T %s") $HOSTNAME "
+	if (( $(date +%s) % 60 == 0 )); then
+		RND=$(openssl rand -hex 8)
+	fi
+	sleep 1s
 done > "$FIFO" &
 
 STATUS_PID=$!
